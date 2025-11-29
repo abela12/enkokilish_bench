@@ -14,6 +14,8 @@ const model = "google/gemini-2.5-flash-lite";
 // const model = google("gemini-2.5-flash"); // Optionally use a provider
 // const model = wrapAISDKModel(google("gemini-2.5-flash-lite")); // Wrap to get traces
 
+let totalCost = 0;
+
 // Benchmark
 evalite("Enkokilish Bench", {
   data: async () => dataset,
@@ -24,15 +26,53 @@ evalite("Enkokilish Bench", {
       prompt: input,
     });
 
-    return result.text;
+    totalCost += Number(result.providerMetadata?.gateway?.cost ?? 0);
+    return result;
   },
   scorers: [
     {
       scorer: ({ output, expected }) =>
         contains({
-          actual: output,
+          actual: output.text,
           expected: expected,
         }),
     },
   ],
+  columns: async (result) => {
+    return [
+      {
+        label: "Input",
+        value: result.input,
+      },
+      {
+        label: "Output",
+        value: result.output.text,
+      },
+      {
+        label: "Expected",
+        value: result.expected,
+      },
+      {
+        label: "InTok",
+        value: result.output.usage.inputTokens || 0,
+      },
+      {
+        label: "OutTok",
+        value: result.output.usage.outputTokens || 0,
+      },
+      {
+        label: "TotTok",
+        value: result.output.usage.totalTokens || 0,
+      },
+      {
+        label: "Cost",
+        value: result.output.providerMetadata?.["gateway"]["cost"],
+      },
+      {
+        label: "TotCost",
+        value: totalCost,
+      },
+    ];
+  },
+  // trialCount: 5,  // Run each data point 5 times
 });
