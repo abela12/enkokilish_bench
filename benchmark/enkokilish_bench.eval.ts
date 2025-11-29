@@ -2,9 +2,9 @@ import { evalite } from "evalite";
 import { generateText } from "ai";
 import { contains } from "evalite/scorers/deterministic";
 import { enkokilish_dataset } from "../datasets/enkokilish";
-import { systemPrompt } from "../system_prompt/system_prompt";
 import { reportTrace } from "evalite/traces";
 import { modelsToBenchmark } from "../eval_config/models_to_benchmark";
+import { systemPrompt } from "../eval_config/system_prompt";
 
 // Import Datase
 const dataset = enkokilish_dataset;
