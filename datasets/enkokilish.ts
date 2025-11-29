@@ -219,11 +219,9 @@ export const enkokilish_dataset = [
   {
     input: "እንደ አህያ ዱላ፣ እንደ ድመት ወተት ፣ እንደ ውሻ እሳት ፣ እንደ ነብር ስጋ የሚወድ?",
     expected: "ቆጮ",
-    only: true,
   },
   {
     input: "ከላይ ጥቅጥቅ ያለ ጫካ፣ ከስር ሰፊ ሜዳ፣ ከታች ሁለት ቀጫጭን ቱቦዎች?",
     expected: "ፀጉር፣ ግንባር፣ አፍንጫ",
-    only: true,
   },
 ];
